@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package twil;
+
+service SpeechToText {
+    rpc Recognize(RecognizeRequest) returns(RecognizeResponse) {}
+}
+
+message RecognizeRequest {
+    bytes audio = 1;
+    string language = 2;
+}
+
+message RecognizeResponse {
+    string text = 1;
+}
