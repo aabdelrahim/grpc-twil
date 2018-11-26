@@ -7,7 +7,7 @@ service SpeechToText {
 }
 
 message RecognizeRequest {
-    string audioUrl = 1;
+    bytes audio = 1;
     string language = 2;
 }
 
