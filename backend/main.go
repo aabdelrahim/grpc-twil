@@ -70,8 +70,6 @@ type server struct {
 func (server) Recognize(ctx context.Context, req *pb.RecognizeRequest) (*pb.RecognizeResponse, error) {
 	text, err := transcribe(ctx, req.Audio, req.Language)
 	if err != nil {
-		// http.Error("could not transcribe", http.StatusInternalServerError)
-		// log.Errorf("could not transcribe: %v", err)
 		return nil, err
 	}
 
@@ -113,7 +111,6 @@ func fetchTranscription(ctx context.Context, rec []byte, language string) (strin
 		return "", fmt.Errorf("could not encode speech request: %v", err)
 	}
 
-	// fetchClient := urlfetch.Client(ctx)
 	resp, err := http.Post(SpeechUrl, "application/json", bytes.NewReader(j))
 	if err != nil {
 		return "", fmt.Errorf("could not transcribe: %v", err)

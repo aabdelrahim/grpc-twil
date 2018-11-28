@@ -49,7 +49,6 @@ const (
 var Backend = flag.String("b", "35.232.199.229:8080", "address of the grpc backend")
 
 func init() {
-
 	http.HandleFunc("/", handler)
 }
 

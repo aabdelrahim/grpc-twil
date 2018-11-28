@@ -44,7 +44,6 @@ func main() {
 }
 
 func fetchAudio(ctx context.Context, recUrl string) ([]byte, error) {
-	// fetchClient := urlfetch.Client(ctx)
 	res, err := http.Get(recUrl)
 	if err != nil {
 		return nil, fmt.Errorf("failed to GET recording: %v", err)
