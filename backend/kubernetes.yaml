@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: twil-deployment
+  labels:
+    app: twilIO
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: twilIO
+  template:
+    metadata:
+      labels:
+        app: twilIO
+    spec:
+      containers:
+      - name: twilio-server
+        image: gcr.io/grpc-twil/recognize
+        ports:
+        - containerPort: 8080
+        env: 
+          - name: GCLOUD_SPEECH_KEY
+            valueFrom:
+              secretKeyRef:
+                name: gcloud-speech-key
+                key: api_key
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: twil-service
+spec:
+  selector:
+    app: twilIO
+  ports:
+  - protocol: TCP
+    port: 8080
+  type: LoadBalancer
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: secret-env-pod
+spec:
+  containers:
+    - name: secret-container
+      image: redis
+      env: 
+        - name: GCLOUD_SPEECH_KEY
+          valueFrom:
+            secretKeyRef:
+              name: gcloud-speech-key
+              key: api_key
+
