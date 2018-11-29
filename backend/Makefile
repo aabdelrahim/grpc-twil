@@ -5,6 +5,3 @@ build:
 
 push:
 	gcloud docker -- push gcr.io/grpc-twil/recognize
-
-test:
-	docker run -p 8080:8080 -e GCLOUD_SPEECH_KEY='' gcr.io/grpc-twil/recognize 
