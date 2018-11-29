@@ -104,7 +104,7 @@ func handler(w http.ResponseWriter, req *http.Request) {
 	defer conn.Close()
 
 	client := pb.NewSpeechToTextClient(conn)
-	request := &pb.RecognizeRequest{Audio: audio, Language: ""}
+	request := &pb.RecognizeRequest{Audio: audio, Language: language}
 	log.Infof(ctx, "Sending Request\n")
 	res, err := client.Recognize(ctx, request)
 	if err != nil {
