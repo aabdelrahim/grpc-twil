@@ -53,7 +53,6 @@ func main() {
 	if err != nil {
 		log.Fatalf("could not listen to port %d: %v", *port, err)
 	}
-	fmt.Printf("Check it out, it works: %s\n", os.Getenv("GCLOUD_SPEECH_KEY"))
 	s := grpc.NewServer()
 
 	pb.RegisterSpeechToTextServer(s, server{})
@@ -128,7 +127,7 @@ func fetchTranscription(ctx context.Context, rec []byte, language string) (strin
 	}
 
 	if len(data.Results) == 0 || len(data.Results[0].Alternatives) == 0 {
-		return "", fmt.Errorf("no transcription found")
+		return "no transcription found", nil
 	}
 	return data.Results[0].Alternatives[0].Transcript, nil
 }
